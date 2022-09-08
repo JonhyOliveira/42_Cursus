@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 15:07:04 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/07 20:18:26 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/08 08:56:01 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,54 +25,37 @@ static size_t	ft_strle(char *s1)
 	return (counter);
 }
 
-// joins and frees two strings
-// has guards for null strings
-static char	*ft_strjoin_free(char *s1, char *s2)
-{
-	char	*join;
-	char	*join_it;
-	size_t	index;
-
-	join = (char *) malloc(sizeof(char) * (ft_strle(s1) + ft_strle(s2) + 1));
-	if (join)
-	{
-		join_it = join;
-		index = 0;
-		while (s1 && s1[index])
-			*join_it++ = s1[index++];
-		index = 0;
-		while (s2 && s2[index])
-			*join_it++ = s2[index++];
-		*join_it = 0;
-	}
-	free(s1);
-	free(s2);
-	return (join);
-}
-
 // reads a line from str or until it reaches the end of str
 // cont will point to the next position on str
 // found_nl will be set to 1 if it found a nl
-static char	*read_line(char *str, char **cont, int *found_nl)
+// prefixes the line read with the given prefix
+// frees both prefix and str
+static char	*read_line_free(char *prefix, char *str, char **cont, int *found_nl)
 {
-	char	*line;
-	size_t	index;
+	char	*new_line;
+	char	*new_line_it;
+	char	*it;
 
-	index = 0;
-	while (str[index] && str[index] != '\n')
-		index++;
-	line = (char *) malloc(sizeof(char) * (index + 1));
-	if (!line)
+	it = str;
+	while (str && *it && (it == str || *(it - 1) != '\n'))
+		it++;
+	new_line = (char *) malloc(sizeof(char) * (ft_strle(prefix) + (it - str) + 1));
+	new_line_it = new_line;
+	if (!new_line)
 		return (0);
-	index = -1;
-	while (str[++index] && str[index] != '\n')
-		line[index] = str[index];
-	line[index] = 0;
-	if (found_nl && str[index] == '\n')
+	it = prefix;
+	while (prefix && *it)
+		*new_line_it++ = *it++;
+	it = str;
+	while (str && *it && (it == str || *(it - 1) != '\n'))
+		*new_line_it++ = *it++;
+	if (found_nl && str && it != str && *(it - 1) == '\n')
 		*found_nl = 1;
+	*new_line_it = 0;
 	if (cont)
-		*cont = str + index + 1;
-	return (line);
+		*cont = it;
+	free(prefix);
+	return (new_line);
 }
 
 // resets a file buffer
@@ -120,6 +103,7 @@ char	*get_next_line(int fd)
 	nl = 0;
 	while (!nl && c_b->bytes_last_read)
 	{
+		printf("%s\n", c_b->buf);
 		if (!c_b->it || c_b->it - c_b->buf >= (long int) c_b->bytes_last_read)
 		{	
 			c_b->bytes_last_read = read(fd, c_b->buf, BUFFER_SIZE);
@@ -127,7 +111,7 @@ char	*get_next_line(int fd)
 			c_b->it = c_b->buf;
 		}
 		else
-			line = ft_strjoin_free(line, read_line(c_b->it, &(c_b->it), &nl));
+			line = read_line_free(line, c_b->it, &(c_b->it), &nl);
 	}
 	return (line);
 }
