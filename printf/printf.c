@@ -6,44 +6,64 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:28:10 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/09 15:45:01 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/15 15:58:08 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include "formats/formats.h"
+#include "src/formats/formats.h"
 
-static size_t	max_index(char *fmt)
+void	print_options(t_f_options *opts);
+
+// char to string
+static char	*ctos(char c)
 {
-	size_t	counter;
-	size_t	max;
-	t_f_options	*opts;
+	char	*str;
 
-	counter = 0;
-	max = 0;
-	while (*fmt)
-	{
-		opts = parse_format(fmt, &fmt);
-		if (opts)
-		{
-			if (opts->arg_i >= 0)
-			{
-				if (opts->arg_i > max)
-					max = opts->arg_i;
-			}
-			else
-				counter++;
-		}
-		else
-			fmt++;
-	}
-	if (counter > max)
-		max = counter;
-	printf("counter: %ld\n", counter);
-	return (max);
+	str = (char *) malloc(sizeof(char) * 2);
+	str[0] = c;
+	str[1] = 0;
+	return (str);
 }
 
-int		ft_printf(const char *fmt, ...)
+static void	put_str(char *str)
 {
-	printf("%ld\n", max_index(fmt));
+	while (*str)
+		write(1, str++, 1);
+}
+
+void	*free_fail(void *to_free)
+{
+	free(to_free);
+	return (0);
+}
+
+int ft_printf(const char *fmt, ...) {
+	va_list		ap;
+	t_f_options	*opts;
+	char		*fmt_it;
+	char		*str;
+	size_t		index;
+
+	index = 0;
+	fmt_it = (char *)fmt;
+	str = (char *) 0;
+	va_start(ap, fmt);
+	while (*fmt_it) {
+		opts = parse_format(fmt_it, &fmt_it);
+		if (opts)
+		{
+			print_options(opts);
+			if (opts->arg_i < 0)
+				join_formatted(opts, ap, &str, index++);
+			else
+				join_formatted(opts, ap, &str, opts->arg_i);
+			free(opts);
+		}
+		else
+			join_free(&str, ctos(*fmt_it++));
+	}
+	va_end(ap);
+	put_str(str);
+	return (0);
 }
