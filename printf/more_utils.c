@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   formats.h                                          :+:      :+:    :+:   */
+/*   more_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 16:14:25 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/15 16:15:04 by joaooliv         ###   ########.fr       */
+/*   Created: 2022/09/18 19:47:19 by joaooliv          #+#    #+#             */
+/*   Updated: 2022/09/18 19:47:30 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#ifndef PRINTF_FORMATS_H
-# define PRINTF_FORMATS_H
 
 #include "printf.h"
 
 // joins two strings and frees them
-char	*join_free(char **s1_ptr, char *s2);
+char	*join_free(char **s1_ptr, char *s2)
+{
+	char	*joined;
+	char	*j_it;
+	char	*s1_it;
+	char	*s2_it;
 
-void	join_formatted(t_f_options *opts, va_list args, char **final_str_ptr, size_t index);
-char	*to_character(void *mem, t_f_options *opts);
-char	*to_hex(unsigned int n, t_f_options *opts);
-char	*to_dec(int n, t_f_options *opts);
-char	*to_pointer(void *pointer, t_f_options *opts);
+	joined = (char *) malloc(sizeof(char) * (str_len(*s1_ptr) + str_len(s2) + 1));
+	if (!joined)
+			return (joined);
+	j_it = joined;
+	s1_it = *s1_ptr;
+	s2_it = s2;
+	while (s1_it && *s1_it)
+			*j_it++ = *s1_it++;
+	while (s2_it && *s2_it)
+			*j_it++ = *s2_it++;
+	*j_it = 0;
+	if (s1_ptr)
+	{
+		free(*s1_ptr);
+		*s1_ptr = joined;
+	}
+	free(s2);
+	return (joined);
+}
 
-size_t	nbr_size(long long n, size_t radix);
-
-#endif

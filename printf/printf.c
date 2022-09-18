@@ -6,25 +6,14 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:28:10 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/15 15:58:08 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/18 19:59:04 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include "src/formats/formats.h"
+#include "formats/formats.h"
 
 void	print_options(t_f_options *opts);
-
-// char to string
-static char	*ctos(char c)
-{
-	char	*str;
-
-	str = (char *) malloc(sizeof(char) * 2);
-	str[0] = c;
-	str[1] = 0;
-	return (str);
-}
 
 static void	put_str(char *str)
 {
@@ -36,6 +25,31 @@ void	*free_fail(void *to_free)
 {
 	free(to_free);
 	return (0);
+}
+
+static char *(*converters[CONVERSIONS_N])(t_f_options *,va_list) =
+{
+	&to_character,
+	&to_str,
+	&to_pointer,
+	&to_dec,
+	&to_dec,
+	&to_dec,
+	&to_hex,
+	&to_hex
+};
+
+static char	*format(t_f_options *opts, va_list args, size_t index)
+{
+	va_list	copy;
+
+	va_copy(copy, args);
+	while (index-- > 1)
+		va_arg(copy, void *);
+	if (converters[opts->conv])
+		return (converters[opts->conv](opts, args));
+	else
+		return (0);
 }
 
 int ft_printf(const char *fmt, ...) {
@@ -53,11 +67,10 @@ int ft_printf(const char *fmt, ...) {
 		opts = parse_format(fmt_it, &fmt_it);
 		if (opts)
 		{
-			print_options(opts);
 			if (opts->arg_i < 0)
-				join_formatted(opts, ap, &str, index++);
+				join_free(&str, format(opts, ap, index++));
 			else
-				join_formatted(opts, ap, &str, opts->arg_i);
+				join_free(&str, format(opts, ap, opts->arg_i));
 			free(opts);
 		}
 		else

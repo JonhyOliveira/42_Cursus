@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:46:01 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/15 16:40:40 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/18 20:06:20 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	main()
 
 	setbuf(stdout, NULL);
 //	ft_printf("%1$3.5x", 32, 31);
-	printf("%p", 1);
+	ft_printf("%p\n", 1);
+	printf("%p\n", (void *) 1);
 //	printf("%%u:\n");
 //	printf("'%#u'\n", 32);
 //	ft_printf("ft '%#u'\n\n", 32);

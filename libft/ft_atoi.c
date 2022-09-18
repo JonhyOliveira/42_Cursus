@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:22:24 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/05 16:11:15 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/06 11:16:59 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_atoi(const char *nptr)
 	sign = 1;
 	result = 0;
 	while (isspace(nptr[index]))
-	index++;
+		index++;
 	if (nptr[index] == '+' || nptr[index] == '-')
 	{
 		if (nptr[index] == '-')

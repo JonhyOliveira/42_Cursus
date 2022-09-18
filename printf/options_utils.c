@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 15:22:00 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/15 17:56:16 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/18 15:48:47 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,15 @@ t_f_options	*dup_options(t_f_options *opts)
 	index = -1;
 	while (++index < FLAGS_N)
 		res->flags[index] = opts->flags[index];
+	return (res);
 }
 
 void	sanitize_options(t_f_options *opts)
 {
-	size_t	index;
-
-	if (opts->conv == pointer)
-	{
-		opts->conv = lhex;
-		index = -1;
-		while (++index < FLAGS_N)
-			if (index == hash)
-				opts->flags[index] = true;
-			else
-				opts->flags[index] = false;
-	}
-	else
-	{
-		if (opts->flags[zero] && opts->precision > 0
-	}
+	if (opts->flags[zero] && opts->flags[minus])
+		opts->flags[zero] = false;
+	if (opts->flags[plus] && opts->flags[space])
+		opts->flags[space] = false;
 }
 
 void	print_options(t_f_options *opts)
@@ -89,14 +78,14 @@ void	print_options(t_f_options *opts)
 	printf("opts: %p\n", opts);
 	if (opts)
 	{
-		printf("\tfield width: %ld\n", opts->field_width);
-		printf("\tprecision: %d\n", opts->precision);
-		printf("\targument: %ld\n", opts->arg_i);
-		printf("\tpading character: '%c'\n", opts->padd_char);
-		printf("\tconversion: %s\n", conv_string(opts->conv));
-		printf("flags:\n");
-		printf("\t\t#: %s\t+: %s\n", bool_string(opts->flags[hash]), bool_string(opts->flags[plus]));
-		printf("\t\t-: %s\t0: %s\n", bool_string(opts->flags[minus]), bool_string(opts->flags[zero]));
-		printf("\t\tspace: %s\n", bool_string(opts->flags[space]));
+		printf("\t- field width: %ld\n", opts->field_width);
+		printf("\t- precision: %ld\n", opts->precision);
+		printf("\t- argument: %ld\n", opts->arg_i);
+		printf("\t- pading character: '%c'\n", opts->padd_char);
+		printf("\t- conversion: %s\n", conv_string(opts->conv));
+		printf("\t- flags:\n");
+		printf("\t\t* #: %s\t* +: %s\n", bool_string(opts->flags[hash]), bool_string(opts->flags[plus]));
+		printf("\t\t* -: %s\t* 0: %s\n", bool_string(opts->flags[minus]), bool_string(opts->flags[zero]));
+		printf("\t\t* space: %s\n", bool_string(opts->flags[space]));
 	}
 }

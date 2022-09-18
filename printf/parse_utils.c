@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 17:27:52 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/09 15:42:35 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/18 20:06:40 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,6 @@ static int	update_flags(char flag, t_flags flags)
 	return (1);
 }
 
-void	*free_fail(void *to_free)
-{
-	free(to_free);
-	return (0);
-}
-
 // parses "[0-9]*$" regex
 // returns parsed number if successfull, -1 otherwise 
 static size_t	parse_index(char **fmt_ptr)
@@ -60,28 +54,47 @@ static size_t	parse_index(char **fmt_ptr)
 	return (index);
 }
 
+static void	parse_width_n_precision(char **fmt_ptr, t_f_options *opts)
+{
+	char	*fmt;
+
+	opts->field_width = 0;
+	opts->precision = 0;
+	fmt = *fmt_ptr;
+	while (*fmt >= '0' && *fmt <= '9')
+		opts->field_width = (opts->field_width * 10) + (*fmt++ - '0');
+	if (*fmt == '.')
+	{
+		fmt++;
+		while (*fmt >= '0' && *fmt <= '9')
+			opts->precision = (opts->precision * 10) + (*fmt++ - '0');
+	}
+	*fmt_ptr = fmt;
+}
+
 t_f_options	*parse_format(char *fmt_start, char	**cont_fmt)
 {
 	t_f_options	*options;
-	int			conversion_i;
+	int			index;
 
 	if (*fmt_start++ != '%')
 		return (0);
-	options = (t_options *) malloc(sizeof(t_options));
+	options = (t_f_options *) malloc(sizeof(t_f_options));
 	if (!options)
 		return (0);
 	options->arg_i = parse_index(&fmt_start);
 	options->padd_char = ' ';
+	index = 0;
+	while (index < FLAGS_N)
+		options->flags[index++] = false;
 	while (charset_index(*fmt_start, PRINTF_FLAGS) >= 0)
 		update_flags(*fmt_start++, options->flags);
-	options->padding = 0;
-	while (*fmt_start >= '0' && *fmt_start <= '9')
-		options->padding = (options->padding * 10) + (*fmt_start++ - '0');
-	conversion_i = charset_index(*fmt_start++, PRINTF_CONVERSIONS);
-	if (conversion_i < 0 || conversion_i > CONVERSIONS_N)
-		return ((t_options *) free_fail(options));
+	parse_width_n_precision(&fmt_start, options);
+	index = charset_index(*fmt_start++, PRINTF_CONVERSIONS);
+	if (index < 0 || index > CONVERSIONS_N)
+		return ((t_f_options *) free_fail(options));
 	else
-		options->conv = (t_conversion) conversion_i;
+		options->conv = (t_conversion) index;
 	if (cont_fmt)
 		*cont_fmt = fmt_start;
 	return (options);

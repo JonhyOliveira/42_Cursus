@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 15:07:04 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/08 08:56:01 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/08 14:38:41 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // a very complicated function and hard to understand
 // has guards for null string
-static size_t	ft_strle(char *s1)
+static size_t	str_len(char *s1)
 {
 	size_t	counter;
 
@@ -30,6 +30,7 @@ static size_t	ft_strle(char *s1)
 // found_nl will be set to 1 if it found a nl
 // prefixes the line read with the given prefix
 // frees both prefix and str
+// TODO change to receive t_buffer as arg
 static char	*read_line_free(char *prefix, char *str, char **cont, int *found_nl)
 {
 	char	*new_line;
@@ -39,7 +40,7 @@ static char	*read_line_free(char *prefix, char *str, char **cont, int *found_nl)
 	it = str;
 	while (str && *it && (it == str || *(it - 1) != '\n'))
 		it++;
-	new_line = (char *) malloc(sizeof(char) * (ft_strle(prefix) + (it - str) + 1));
+	new_line = (char *) malloc(sizeof(char) * (str_len(prefix) + it - str + 1));
 	new_line_it = new_line;
 	if (!new_line)
 		return (0);
@@ -103,7 +104,6 @@ char	*get_next_line(int fd)
 	nl = 0;
 	while (!nl && c_b->bytes_last_read)
 	{
-		printf("%s\n", c_b->buf);
 		if (!c_b->it || c_b->it - c_b->buf >= (long int) c_b->bytes_last_read)
 		{	
 			c_b->bytes_last_read = read(fd, c_b->buf, BUFFER_SIZE);
