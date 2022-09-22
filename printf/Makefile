@@ -6,7 +6,7 @@
 #    By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/09 17:03:21 by joaooliv          #+#    #+#              #
-#    Updated: 2022/09/22 22:09:50 by joaooliv         ###   ########.fr        #
+#    Updated: 2022/09/22 22:37:25 by joaooliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,21 +41,20 @@ OBJS		= ${CFILES:.c=.o}
 
 all:		$(NAME)
 
-$(NAME) :	$(LIBFT).a $(OBJS)
+$(NAME):	$(LIBFT).a $(OBJS)
 		@cp $(LIBFT).a $(NAME)
-		@printf "\n$(WHITE)%-50.50s$(DEF_COLOR)" "Making $(NAME)"
+		@printf "\n$(WHITE)%-50.50s$(DEF_COLOR)\n" "Making $(NAME)"
 		@$(AR) $(NAME) $(OBJS)
-		@echo "$(GREEN)done.$(DEF_COLOR)"
+		@echo "$(GREEN)Done.$(DEF_COLOR)"
+
+%.o: 		%.c
+		@printf "$(GRAY)Compiling $(CYAN)%-40.40s$(GRAY)...$(DEF_COLOR)" $<
+		@$(CC) $(CFLAGS) -c -o $@ $<
+		@printf "\r$(GREEN)Compiled %-44.44s$(DEF_COLOR)\n" $<
 
 $(LIBFT).a:
 		@make -sC $(LIBFT) # compile libft
 		@cp libft/libft.a .
-
-#$(OBJS):	$(CFILES)
-#		$(eval F = $@)
-#		@printf "$(YELLOW)%-50.50s$(DEF_COLOR)" "Making $F"
-#		@$(CC) $(CFLAGS) -c $< -o $F
-#		@echo "$(GREEN)done.$(DEF_COLOR)"
 
 clean:
 		@echo -n "$(RED)"
