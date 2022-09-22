@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:13:59 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/22 15:01:40 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/22 22:06:48 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,24 @@ char	*to_str(t_f_options *opts, va_list args)
 		free(tmp);
 	}
 	return (str_rep);
+}
+
+char	*to_pointer(t_f_options *opts, va_list args)
+{
+	t_f_options	*tmp;
+	char		*res;
+	size_t		index;
+
+	tmp = dup_options(opts);
+	res = 0;
+	if (!tmp)
+		return (res);
+	tmp->conv = lhex;
+	index = -1;
+	while (++index < FLAGS_N)
+		tmp->flags[index] = false;
+	tmp->flags[hash] = true;
+	res = to_hex(tmp, args);
+	free(tmp);
+	return (res);
 }

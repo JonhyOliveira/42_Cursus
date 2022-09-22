@@ -6,7 +6,7 @@
 #    By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/09 17:03:21 by joaooliv          #+#    #+#              #
-#    Updated: 2022/09/22 14:04:03 by joaooliv         ###   ########.fr        #
+#    Updated: 2022/09/22 22:09:50 by joaooliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ WHITE		= \033[0;97m
 
 # sources
 
-CFILES		=  $(shell find ./src -type f -name "*.c") ./dev_utils.c ./ft_printf.c  
+CFILES		=  $(shell find ./src -type f -name "*.c") ./ft_printf.c  
 
 OBJS		= ${CFILES:.c=.o}
 
@@ -59,7 +59,7 @@ $(LIBFT).a:
 
 clean:
 		@echo -n "$(RED)"
-		@$(RM)	$(OBJS) $(LIBFT).a $(TEST_FILE).o
+		@$(RM)	$(OBJS) $(LIBFT).a $(TEST_FILE).o test a.out
 		@echo -n "$(DEF_COLOR)"
 
 fclean: 	clean
