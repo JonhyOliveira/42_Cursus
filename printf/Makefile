@@ -6,7 +6,7 @@
 #    By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/09 17:03:21 by joaooliv          #+#    #+#              #
-#    Updated: 2022/09/22 23:01:11 by joaooliv         ###   ########.fr        #
+#    Updated: 2022/09/22 23:08:03 by joaooliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,10 +34,9 @@ WHITE		= \033[0;97m
 # sources
 
 CFILES		=  $(shell find ./src -type f -name "*.c") ./ft_printf.c  
-
 OBJS		= ${CFILES:.c=.o}
 
-# recepies
+# recipies
 
 all:		$(NAME)
 
