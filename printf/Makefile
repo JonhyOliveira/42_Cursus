@@ -6,27 +6,71 @@
 #    By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/09 17:03:21 by joaooliv          #+#    #+#              #
-#    Updated: 2022/09/18 20:08:40 by joaooliv         ###   ########.fr        #
+#    Updated: 2022/09/22 14:04:03 by joaooliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFILES	= $(shell find ./formats -type f -name "*.c") printf.c printf_tester.c $(shell find . -type f -name "*_utils.c")
-OBJS	= ${CFILES:.c=.o}
+# config
 
-CC 	= gcc
-CFLAGS 	= -Wall -Wextra -Werror -I .
-NAME 	= test
+CC			= gcc
+CFLAGS		= -Wall -Wextra -Werror -I ./includes
+AR			= ar rcsv
+RM			= rm -rfv
 
-# all:		$(NAME)
+NAME 		= libftprintf.a
+LIBFT		= libft
+TEST_FILE	= test_file
 
-$(NAME) :	$(OBJS)
-	make libft
-	$(CC) $(CFLAGS) libft/libft.a  $(OBJS) -o $(NAME)
+DEF_COLOR	= \033[0;39m
+GRAY		= \033[0;90m
+RED			= \033[0;91m
+GREEN		= \033[0;92m
+YELLOW		= \033[0;93m
+BLUE		= \033[0;94m
+MAGENTA		= \033[0;95m
+CYAN		= \033[0;96m
+WHITE		= \033[0;97m
+
+# sources
+
+CFILES		=  $(shell find ./src -type f -name "*.c") ./dev_utils.c ./ft_printf.c  
+
+OBJS		= ${CFILES:.c=.o}
+
+# recepies
+
+all:		$(NAME)
+
+$(NAME) :	$(LIBFT).a $(OBJS)
+		@cp $(LIBFT).a $(NAME)
+		@printf "\n$(WHITE)%-50.50s$(DEF_COLOR)" "Making $(NAME)"
+		@$(AR) $(NAME) $(OBJS)
+		@echo "$(GREEN)done.$(DEF_COLOR)"
+
+$(LIBFT).a:
+		@make -sC $(LIBFT) # compile libft
+		@cp libft/libft.a .
+
+#$(OBJS):	$(CFILES)
+#		$(eval F = $@)
+#		@printf "$(YELLOW)%-50.50s$(DEF_COLOR)" "Making $F"
+#		@$(CC) $(CFLAGS) -c $< -o $F
+#		@echo "$(GREEN)done.$(DEF_COLOR)"
 
 clean:
-	rm -f $(OBJS)
+		@echo -n "$(RED)"
+		@$(RM)	$(OBJS) $(LIBFT).a $(TEST_FILE).o
+		@echo -n "$(DEF_COLOR)"
 
-fclean: clean
-	rm -f $(NAME)
+fclean: 	clean
+		@echo -n "$(RED)"
+		@$(RM) $(NAME)
+		@echo -n "$(DEF_COLOR)"
 
-re:		fclean $(NAME)
+test:		$(NAME) $(TEST_FILE).o
+		@$(CC) -o test $(TEST_FILE).o $(NAME)  
+
+$(TEST_FILE).o: $(TEST_FILE).c
+		$(CC) -I includes -c $(TEST_FILE).c -o $(TEST_FILE).o
+
+re:			fclean $(NAME)

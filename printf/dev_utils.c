@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   options_utils.c                                    :+:      :+:    :+:   */
+/*   dev_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/15 15:22:00 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/18 15:48:47 by joaooliv         ###   ########.fr       */
+/*   Created: 2022/09/19 17:21:07 by joaooliv          #+#    #+#             */
+/*   Updated: 2022/09/21 23:04:04 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "internals.h"
 #include <stdio.h>
 
 char	*conv_string(t_conversion c)
@@ -46,33 +46,6 @@ char	*bool_string(bool b)
 		return "false";
 }
 
-t_f_options	*dup_options(t_f_options *opts)
-{
-	t_f_options	*res;
-	size_t		index;
-
-	res = (t_f_options *) malloc(sizeof(t_f_options));
-	if (!res)
-		return (res);
-	res->field_width = opts->field_width;
-	res->precision = opts->precision;
-	res->arg_i = opts->arg_i;
-	res->padd_char = opts->padd_char;
-	res->conv = opts->conv;
-	index = -1;
-	while (++index < FLAGS_N)
-		res->flags[index] = opts->flags[index];
-	return (res);
-}
-
-void	sanitize_options(t_f_options *opts)
-{
-	if (opts->flags[zero] && opts->flags[minus])
-		opts->flags[zero] = false;
-	if (opts->flags[plus] && opts->flags[space])
-		opts->flags[space] = false;
-}
-
 void	print_options(t_f_options *opts)
 {
 	printf("opts: %p\n", opts);
@@ -89,3 +62,4 @@ void	print_options(t_f_options *opts)
 		printf("\t\t* space: %s\n", bool_string(opts->flags[space]));
 	}
 }
+

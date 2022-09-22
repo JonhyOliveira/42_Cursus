@@ -6,11 +6,11 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 17:27:52 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/18 20:06:40 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:32:26 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "internals.h"
 
 long	charset_index(char c, char *charset)
 {
@@ -58,14 +58,17 @@ static void	parse_width_n_precision(char **fmt_ptr, t_f_options *opts)
 {
 	char	*fmt;
 
-	opts->field_width = 0;
-	opts->precision = 0;
+	opts->field_width = -1;
+	opts->precision = -1;
 	fmt = *fmt_ptr;
+	if (*fmt >= '0' && *fmt <= '9')
+		opts->field_width = 0;
 	while (*fmt >= '0' && *fmt <= '9')
 		opts->field_width = (opts->field_width * 10) + (*fmt++ - '0');
 	if (*fmt == '.')
 	{
 		fmt++;
+		opts->precision = 0;
 		while (*fmt >= '0' && *fmt <= '9')
 			opts->precision = (opts->precision * 10) + (*fmt++ - '0');
 	}
