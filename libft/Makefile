@@ -6,7 +6,7 @@
 #    By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/04 12:18:00 by joaooliv          #+#    #+#              #
-#    Updated: 2022/09/05 19:21:39 by joaooliv         ###   ########.fr        #
+#    Updated: 2022/09/19 18:09:28 by joaooliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ HEADERS_DIR	=includes/
 BONUSFILES	=$(shell ls ft_lst*.c)
 BONUSOBJS	=$(BONUSFILES:.c=.o)
 
-CC 		=gcc
-CFLAGS		=-Wall -Wextra -Werror -I .
-NAME		=libft.a
+CC 			= gcc
+CFLAGS		= -Wall -Wextra -Werror -I .
+NAME		= libft.a
 
 all: 		$(NAME) 
 
@@ -36,8 +36,7 @@ clean:
 fclean:		clean
 			rm -f $(NAME)
 
-so:
-	$(CC) -fPIC $(CFLAGS) $(CFILES) $(BONUSFILES)
-	gcc -shared -o libft.so $(OBJ)
+so:			$(OBJS)
+			gcc -shared -o libft.so $(OBJS)
 
 re:		fclean $(NAME)
