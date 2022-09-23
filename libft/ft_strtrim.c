@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:32:57 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/23 13:53:55 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/23 13:55:22 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	in_charset(char const c, char const *charset)
 {
-	return (ft_charset_index(c, charset) >= 0);
+	return (ft_charset_index((char) c, (char *) charset) >= 0);
 }
 
 static size_t	trimmed_size(char const *s1, char const *trimset)
