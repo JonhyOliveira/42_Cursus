@@ -6,7 +6,7 @@
 #    By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/09 17:03:21 by joaooliv          #+#    #+#              #
-#    Updated: 2022/09/22 23:08:03 by joaooliv         ###   ########.fr        #
+#    Updated: 2022/09/23 14:02:16 by joaooliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,9 @@ $(NAME):	$(LIBFT).a $(OBJS)
 		@printf "\r$(GREEN)Compiled %-44.44s$(DEF_COLOR)\n" $<
 
 $(LIBFT).a:
-		@make -C $(LIBFT) # compile libft
-		@cp libft/libft.a .
+		@make -C $(LIBFT) bonus # compile libft
+		@cp $(LIBFT)/libft.a .
+		@cp $(LIBFT)/libft.h includes/libft.h
 
 clean:
 		@echo -n "$(RED)"
