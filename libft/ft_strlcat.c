@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:40:58 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/04 20:28:54 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/23 13:35:34 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	if (size > 0 && dest_l < size - 1)
 	{
 		index = 0;
-		while (src[index] && dest_l + index < size - 1)
+		while (src && src[index] && dest_l + index < size - 1)
 		{
 			dest[dest_l + index] = src[index];
 			index++;

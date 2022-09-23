@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:32:57 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/05 15:15:32 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/23 13:44:52 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	in_charset(char const c, char const *charset)
 	return (found);
 }
 
-size_t	trimmed_size(char const *s1, char const *trimset)
+static size_t	trimmed_size(char const *s1, char const *trimset)
 {
 	long	count;
 	size_t	index;
@@ -59,20 +59,19 @@ char	*ft_strtrim(char const *s1, char const *trimset)
 
 	trim_size = trimmed_size(s1, trimset);
 	trim = (char *) malloc(sizeof(char) * (trim_size + 1));
-	if (trim)
+	if (!trim)
+		return (trim);
+	trim_it = trim;
+	index = 0;
+	while (s1 && s1[index] && in_charset(s1[index], trimset))
 	{
-		trim_it = trim;
-		index = 0;
-		while (s1[index] && in_charset(s1[index], trimset))
-		{
-			index++;
-		}
-		trim_index = 0;
-		while (s1[index + trim_index] && trim_index < trim_size)
-		{
-			*trim_it++ = s1[index + trim_index++];
-		}
-		*trim_it = 0;
+		index++;
 	}
+	trim_index = 0;
+	while (s1 && s1[index + trim_index] && trim_index < trim_size)
+	{
+		*trim_it++ = s1[index + trim_index++];
+	}
+	*trim_it = 0;
 	return (trim);
 }

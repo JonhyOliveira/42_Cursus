@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:31:31 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/04 20:55:04 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/23 13:41:40 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (substr && start < s_length)
 	{
 		index = 0;
-		while (s[start + index] && index < len && start + index < s_length)
+		while (s && s[start + index] && index < len && start + index < s_length)
 		{
 			substr[index] = s[start + index];
 			index++;

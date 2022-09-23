@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:52:31 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/04 13:06:16 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/23 13:32:30 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	while (*s)
+	while (s && *s)
 		write(fd, s++, 1);
 }

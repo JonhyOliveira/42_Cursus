@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:19:21 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/04 20:09:54 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/23 13:36:02 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	if (size != 0)
 	{
 		curr_size = 0;
-		while (src[curr_size] && curr_size < size - 1)
+		while (src && src[curr_size] && curr_size < size - 1)
 		{
 			dest[curr_size] = src[curr_size];
 			curr_size++;
