@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 13:47:02 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/22 22:02:44 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:36:33 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ char	*join_free(char *s1, char *s2)
 	char	*j_it;
 	char	*aux;
 
-	joined = (char *) malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	aux = (char *) ft_strlen(s1) + ft_strlen(s2);
+	joined = (char *) malloc(sizeof(char) * ((size_t) aux + 1));
 	if (!joined)
-			return (joined);
+		return (joined);
 	j_it = joined;
 	aux = s1;
 	while (s1 && *s1)
@@ -88,8 +89,10 @@ size_t	nbr_size(long long n, size_t radix)
 	if (n < 0)
 		return (1 + nbr_size(-n, radix));
 	else
+	{
 		if (n >= (long long) radix)
 			return (1 + nbr_size(n / radix, radix));
 		else
 			return (1);
+	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_nbr.c                                          :+:      :+:    :+:   */
+/*   to_nbr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:13:10 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/22 14:51:24 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:33:28 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static size_t	dec_size(int n, t_f_options *opts)
 	size = nbr_size(n, 10);
 	if (opts->precision > (long long) size)
 		size = opts->precision;
-	if (opts->conv != udecimal) 
+	if (opts->conv != udecimal)
 		if (opts->flags[plus] || opts->flags[space] || n < 0)
 			size++;
 	return (size);

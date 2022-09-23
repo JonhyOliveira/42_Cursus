@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_hex.c                                          :+:      :+:    :+:   */
+/*   to_hex.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmiguel- <bmiguel-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 19:18:33 by bmiguel-          #+#    #+#             */
-/*   Updated: 2022/09/22 14:51:40 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/23 19:04:19 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static size_t	hex_size(unsigned int n, t_f_options *opts)
 	return (size);
 }
 
-static char		to_hex_char(unsigned int n, bool upper)
+static char	to_hex_char(unsigned int n, bool upper)
 {
 	if (n > 16)
 		return ('!');
@@ -39,7 +39,7 @@ static char		to_hex_char(unsigned int n, bool upper)
 		return (n + '0');
 }
 
-static void		put_hex_rec(unsigned int n, char **str_ptr, bool upper, long left)
+static void	put_hex_rec(unsigned int n, char **str_ptr, bool upper, long left)
 {
 	if (n < 16)
 	{
@@ -55,7 +55,7 @@ static void		put_hex_rec(unsigned int n, char **str_ptr, bool upper, long left)
 	}
 }
 
-char			*to_hex(t_f_options *opts, va_list args)
+char	*to_hex(t_f_options *opts, va_list args)
 {
 	char			*res;
 	char			*res_it;

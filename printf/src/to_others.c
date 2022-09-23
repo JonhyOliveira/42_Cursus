@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   to_letters.c                                       :+:      :+:    :+:   */
+/*   to_others.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:13:59 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/22 22:06:48 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/23 19:10:06 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ char	*to_character(t_f_options *opts, va_list args)
 
 char	*to_str(t_f_options *opts, va_list args)
 {
-	(void) opts;
 	char	*str_rep;
 	char	*tmp;
 
+	(void) opts;
 	str_rep = ft_strdup((char *) va_arg(args, void *));
 	if ((long long) ft_strlen(str_rep) > opts->precision && opts->precision > 0)
 	{
@@ -52,4 +52,11 @@ char	*to_pointer(t_f_options *opts, va_list args)
 	res = to_hex(tmp, args);
 	free(tmp);
 	return (res);
+}
+
+char	*to_perc(t_f_options *opts, va_list args)
+{
+	(void) opts;
+	(void) args;
+	return (ctos('%'));
 }

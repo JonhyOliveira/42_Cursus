@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 17:27:52 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/22 15:32:26 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:55:39 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internals.h"
 
-long	charset_index(char c, char *charset)
-{
-	long	index;
-
-	index = 0;
-	while (charset[index])
-		if (charset[index++] == c)
-			return (index - 1);
-	return (-1);
-}
-
-static int	update_flags(char flag, t_flags flags)
+static int	update_flags(char flag, bool flags[FLAGS_N])
 {
 	int	flag_i;
 
-	flag_i = charset_index(flag, PRINTF_FLAGS);
+	flag_i = ft_charset_index(flag, PRINTF_FLAGS);
 	if (flag_i >= 0 && flag_i < FLAGS_N && flags[flag_i] != true)
 		flags[flag_i] = true;
 	else
@@ -90,12 +79,12 @@ t_f_options	*parse_format(char *fmt_start, char	**cont_fmt)
 	index = 0;
 	while (index < FLAGS_N)
 		options->flags[index++] = false;
-	while (charset_index(*fmt_start, PRINTF_FLAGS) >= 0)
+	while (ft_charset_index(*fmt_start, PRINTF_FLAGS) >= 0)
 		update_flags(*fmt_start++, options->flags);
 	parse_width_n_precision(&fmt_start, options);
-	index = charset_index(*fmt_start++, PRINTF_CONVERSIONS);
+	index = ft_charset_index(*fmt_start++, PRINTF_CONVERSIONS);
 	if (index < 0 || index > CONVERSIONS_N)
-		return ((t_f_options *) free_fail(options));
+		return ((t_f_options *) ft_free_fail(options));
 	else
 		options->conv = (t_conversion) index;
 	if (cont_fmt)
