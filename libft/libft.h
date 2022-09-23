@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:19:41 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/23 13:49:48 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:45:12 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	*ft_memset(void *s, int c, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	ft_bzero(void *s, size_t n);
+void	*ft_free_fail(void *to_free);
 
 void	*ft_calloc(size_t nmemb, size_t size);
 

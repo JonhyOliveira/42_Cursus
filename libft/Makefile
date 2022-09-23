@@ -6,7 +6,7 @@
 #    By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/04 12:18:00 by joaooliv          #+#    #+#              #
-#    Updated: 2022/09/23 13:48:45 by joaooliv         ###   ########.fr        #
+#    Updated: 2022/09/23 18:46:16 by joaooliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ CFILES		= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 OBJS		= ${CFILES:.c=.o}
 
 BONUSFILES	= ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c \
-	ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_charset_index.c
+	ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_charset_index.c \
+	ft_free_fail.c
 
 BONUSOBJS	= $(BONUSFILES:.c=.o)
 
