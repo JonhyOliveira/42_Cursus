@@ -6,13 +6,11 @@
 #    By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/24 13:14:18 by joaooliv          #+#    #+#              #
-#    Updated: 2022/09/24 21:47:49 by joaooliv         ###   ########.fr        #
+#    Updated: 2022/09/24 22:35:16 by joaooliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # this script counts lines in C files for all my projects
-
-
 
 count_lines()
 {
@@ -30,11 +28,17 @@ count_lines()
 			printf "|%-25.15s|%-15.15s|\n" $project $p_count
 		done
 		rm /tmp/a
+		exit 1
 	else
-		echo "No projects here :("
+		exit 0
 	fi
 }
-PROJECTS=$(find -P -maxdepth 1 -type d -not -name ".*" | cut -d '/' -f 2)
+PROJECTS=$(find -P $1 -maxdepth 1 -type d -not -name ".*" | cut -d '/' -f 2)
 echo $PROJECTS
 
-count_lines | cat README.part1 - > README.md
+if [ -e README.part1 ] && [ -d .git ] && [[ $PROJECTS ]];
+then
+	count_lines | cat README.part1 - > README.md
+else
+	echo "No projects :("
+fi
