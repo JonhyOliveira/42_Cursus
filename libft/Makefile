@@ -6,13 +6,22 @@
 #    By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/04 12:18:00 by joaooliv          #+#    #+#              #
-#    Updated: 2022/09/23 18:46:16 by joaooliv         ###   ########.fr        #
+#    Updated: 2022/09/24 13:17:56 by joaooliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# sources
+
+INCLUDES	= .
+
+CFILES		= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c 	ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c
+
+BONUS_CFILES	= ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_charset_index.c ft_free_fail.c
+
+# config
 
 CC 			= gcc
-CFLAGS		= -Wall -Wextra -Werror -I .
+CFLAGS		= -Wall -Wextra -Werror -I $(INCLUDES)
 AR			= ar rcvs
 RM			= rm -rfv
 
@@ -28,22 +37,10 @@ MAGENTA		= \033[0;95m
 CYAN		= \033[0;96m
 WHITE		= \033[0;97m
 
-
-CFILES		= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
-	ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c ft_memcmp.c \
-	ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c \
-	ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c ft_strdup.c \
-	ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c \
-	ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c \
-	ft_toupper.c
-
 OBJS		= ${CFILES:.c=.o}
+BONUSOBJS	= $(BONUS_CFILES:.c=.o)
 
-BONUSFILES	= ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c \
-	ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_charset_index.c \
-	ft_free_fail.c
-
-BONUSOBJS	= $(BONUSFILES:.c=.o)
+# recipies
 
 all: 		$(NAME) 
 
