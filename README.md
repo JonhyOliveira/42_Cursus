@@ -1,7 +1,7 @@
 # 42 Cursus Stats
 
 
-|project                  |lines of code  |
+|Project                  |Lines of Code  |
 | :--                     | :---:         |
 |libft                    |808            |
 |get_next_line            |181            |
