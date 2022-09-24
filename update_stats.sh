@@ -6,7 +6,7 @@
 #    By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/24 13:14:18 by joaooliv          #+#    #+#              #
-#    Updated: 2022/09/24 20:34:02 by joaooliv         ###   ########.fr        #
+#    Updated: 2022/09/24 20:35:20 by joaooliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ count_lines()
 		touch /tmp/a
 		rm /tmp/line_count
 		touch /tmp/line_count
-		printf "|%-25.15s|%-15.15s|\n" "project" "lines of code"
+		printf "|%-25.15s|%-15.15s|\n" "Project" "Lines of Code"
 		printf "|%-25.15s|%-15.15s|\n" " :-- " " :---: "
 		p_count=
 		for project in $PROJECTS
