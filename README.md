@@ -3,6 +3,6 @@
 
 |Project                  |Lines of Code  |
 | :--                     | :---:         |
-|libft                    |808            |
-|get_next_line            |181            |
 |printf                   |559            |
+|get_next_line            |181            |
+|libft                    |851            |
