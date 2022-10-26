@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:45:38 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/23 13:32:40 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:37:09 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ char	*ft_strchr(const char *s, int c)
 	size_t	index;
 
 	index = 0;
-	while (s && s[index])
+	c = (char) c;
+	while (s[index])
 	{
 		if (s[index] == c)
 			return ((char *)&s[index]);

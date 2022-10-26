@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:43:48 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/23 13:34:51 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:39:03 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strdup(const char *s)
 	if (dupped)
 	{
 		index = 0;
-		while (s && s[index])
+		while (s[index])
 		{
 			dupped[index] = s[index];
 			index++;

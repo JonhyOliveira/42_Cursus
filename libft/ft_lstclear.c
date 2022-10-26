@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 17:39:25 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/05 18:21:32 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/10/26 16:00:05 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*aux;
 
-	if (*lst)
+	if (lst && *lst && del)
 	{
 		aux = *lst;
 		while (aux)

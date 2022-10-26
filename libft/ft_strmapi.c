@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:39:47 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/23 13:37:07 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:54:19 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	char	*result;
 	size_t	index;
 
+	if (!f || !s)
+		return ((char *) 0);
 	result = (char *) malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (result)
 	{

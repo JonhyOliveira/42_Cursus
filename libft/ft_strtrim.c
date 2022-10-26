@@ -6,11 +6,22 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:32:57 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/23 13:55:22 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:56:08 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static long	ft_charset_index(char c, char *charset)
+{
+	long	index;
+
+	index = 0;
+	while (charset && charset[index])
+		if (charset[index++] == c)
+			return (index - 1);
+	return (-1);
+}
 
 static int	in_charset(char const c, char const *charset)
 {
@@ -50,6 +61,8 @@ char	*ft_strtrim(char const *s1, char const *trimset)
 	size_t	trim_size;
 	size_t	trim_index;
 
+	if (!s1 || !trimset)
+		return ((char *) 0);
 	trim_size = trimmed_size(s1, trimset);
 	trim = (char *) malloc(sizeof(char) * (trim_size + 1));
 	if (!trim)

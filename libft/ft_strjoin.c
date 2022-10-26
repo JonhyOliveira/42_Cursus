@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:41:11 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/22 15:14:19 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:58:28 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*join_it;
 	size_t	index;
 
+	if (!s1 || !s2)
+		return ((char *) 0);
 	join = (char *) malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (join)
 	{

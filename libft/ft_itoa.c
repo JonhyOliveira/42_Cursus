@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 12:03:44 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/04 21:04:58 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:21:54 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static size_t	itoa_size(long n, int *mag_ptr)
 	long	mag;
 
 	size = 1;
-	mag = 1;
+	mag = 10;
 	if (n < 0)
 		size++;
 	while (n / mag)
@@ -59,7 +59,7 @@ static void	zero_fill(char *str, size_t n)
 	size_t	index;
 
 	index = 0;
-	while (str[index] && index < n)
+	while (index < n)
 		str[index++] = '0';
 	str[index] = 0;
 }

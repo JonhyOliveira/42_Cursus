@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:46:24 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/05 17:15:04 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:53:55 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static size_t	split_counter(char const *s, char c)
 
 	splits_counter = 0;
 	index = 0;
-	while (s[index])
+	while (s && s[index])
 	{
 		while (c && s[index] == c)
 			index++;

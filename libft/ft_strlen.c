@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:40:18 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/22 11:01:17 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:51:19 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	count;
 
 	count = 0;
-	while (s && s[count])
+	while (s[count])
 		count++;
 	return (count);
 }
