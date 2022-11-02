@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 15:07:04 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/09/08 14:38:41 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/11/02 16:45:21 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*read_line_free(char *prefix, char *str, char **cont, int *found_nl)
 		it++;
 	new_line = (char *) malloc(sizeof(char) * (str_len(prefix) + it - str + 1));
 	new_line_it = new_line;
-	if (!new_line)
+	if (!new_line || it - str == 0)
 		return (0);
 	it = prefix;
 	while (prefix && *it)
@@ -87,7 +87,7 @@ static void	reset_buffer(t_buffer **prev_buffer)
 	}
 }
 
-// reads a 
+// reads a line
 char	*get_next_line(int fd)
 {
 	char			*line;
@@ -95,6 +95,8 @@ char	*get_next_line(int fd)
 	int				nl;
 	t_buffer		*c_b;
 
+	if (fd > FOPEN_MAX || fd < 0)
+		return (0);
 	if (!buf[fd] || !buf[fd]->bytes_last_read)
 		reset_buffer(&buf[fd]);
 	if (!buf[fd])
@@ -107,6 +109,8 @@ char	*get_next_line(int fd)
 		if (!c_b->it || c_b->it - c_b->buf >= (long int) c_b->bytes_last_read)
 		{	
 			c_b->bytes_last_read = read(fd, c_b->buf, BUFFER_SIZE);
+			if (c_b->bytes_last_read < 0)
+				return (0);
 			c_b->buf[c_b->bytes_last_read] = 0;
 			c_b->it = c_b->buf;
 		}
