@@ -6,14 +6,17 @@
 #    By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/09 17:03:21 by joaooliv          #+#    #+#              #
-#    Updated: 2022/09/23 14:02:16 by joaooliv         ###   ########.fr        #
+#    Updated: 2022/11/09 10:45:10 by joaooliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # config
 
+CSRC		= ./src
+HEADERS		= ./includes
+
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -I ./includes
+CFLAGS		= -Wall -Wextra -Werror -I $(HEADERS)
 AR			= ar rcsv
 RM			= rm -rfv
 
@@ -33,7 +36,7 @@ WHITE		= \033[0;97m
 
 # sources
 
-CFILES		=  $(shell find ./src -type f -name "*.c") ./ft_printf.c  
+CFILES		= $(CSRC)/ft_printf.c $(CSRC)/parsing.c $(CSRC)/to_hex.c $(CSRC)/to_nbr.c $(CSRC)/to_others.c $(CSRC)/utils.c
 OBJS		= ${CFILES:.c=.o}
 
 # recipies
