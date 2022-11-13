@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 11:19:41 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/11/09 10:41:12 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/11/13 17:42:21 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ struct s_list
 };
 
 typedef struct s_list	t_list;
+
+struct s_str
+{
+	char			*content;
+	size_t			size;	
+};
+
+typedef struct s_str	t_str;
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -78,5 +86,8 @@ int		ft_lstsize(t_list *lst);
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstlast(t_list *lst);
+
+t_str	*ft_newstr(size_t size);
+t_str	*ft_newstr_backedby(char *str);
 
 #endif

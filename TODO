@@ -1,1 +1,4 @@
-x Make printf use lists
+Printf (printf copy)
+[] Finish migrating basic functions to use t_str
+[] Migrate the rest of the program
+[] Test

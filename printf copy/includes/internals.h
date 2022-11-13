@@ -76,14 +76,14 @@ t_f_options	*parse_format(char *fmt_start, char **cont_fmt);
 
 // Converter functions
 //     These functions convert the next argument in the argument 
-//   list to a char list in a specific format, based on the format
-//   options (t_f_options).
-t_list		*to_character(t_f_options *opts, va_list args);
-t_list		*to_str(t_f_options *opts, va_list args);
-t_list		*to_hex(t_f_options *opts, va_list args);
-t_list		*to_dec(t_f_options *opts, va_list args);
-t_list		*to_pointer(t_f_options *opts, va_list args);
-t_list		*to_perc(t_f_options *opts, va_list args);
+//   list to a string  in a specific format, based on the format
+//   options (f_options).
+char		*to_character(t_f_options *opts, va_list args);
+char		*to_str(t_f_options *opts, va_list args);
+char		*to_hex(t_f_options *opts, va_list args);
+char		*to_dec(t_f_options *opts, va_list args);
+char		*to_pointer(t_f_options *opts, va_list args);
+char		*to_perc(t_f_options *opts, va_list args);
 
 // size of a number in a given radix
 size_t		nbr_size(long long n, size_t radix);

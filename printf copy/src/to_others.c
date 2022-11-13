@@ -18,25 +18,26 @@ char	*to_character(t_f_options *opts, va_list args)
 	return (ctos(va_arg(args, int)));
 }
 
-t_list	*to_str(t_f_options *opts, va_list args)
+char	*to_str(t_f_options *opts, va_list args)
 {
-	char	*str;
-	size_t	index;
-	t_list	*res;
+	char	*str_rep;
+	char	*tmp;
 
 	(void) opts;
-	str = (char *) va_arg(args, void *);
-	res = 0;
-	index = 0;
-	while (str && str[index] && (opts->precision <= 0 || index > opts->precision))
-		ft_lstadd_back(&res, ft_lstnew(str[index++]));
-	return (res);
+	str_rep = ft_strdup((char *) va_arg(args, void *));
+	if ((long long) ft_strlen(str_rep) > opts->precision && opts->precision > 0)
+	{
+		tmp = str_rep;
+		str_rep = ft_substr(str_rep, 0, opts->precision);
+		free(tmp);
+	}
+	return (str_rep);
 }
 
-t_list	*to_pointer(t_f_options *opts, va_list args)
+char	*to_pointer(t_f_options *opts, va_list args)
 {
 	t_f_options	*tmp;
-	t_list		*res;
+	char		*res;
 	size_t		index;
 
 	tmp = dup_options(opts);
@@ -53,9 +54,9 @@ t_list	*to_pointer(t_f_options *opts, va_list args)
 	return (res);
 }
 
-t_list	*to_perc(t_f_options *opts, va_list args)
+char	*to_perc(t_f_options *opts, va_list args)
 {
 	(void) opts;
 	(void) args;
-	return (ft_lstnew('%'));
+	return (ctos('%'));
 }

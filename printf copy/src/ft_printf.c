@@ -6,7 +6,7 @@
 /*   By: joaooliv <joaooliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:28:10 by joaooliv          #+#    #+#             */
-/*   Updated: 2022/11/09 12:42:24 by joaooliv         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:03:36 by joaooliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,31 @@
 
 void	print_options(t_f_options *opts);
 
-static void	do_padding(t_list *str, t_f_options *opts)
+void	do_padding(t_list *str, t_f_options *opts)
 {
 	size_t	padd_len;
-	t_list	*padd_str;
+	char	*padd_str;
 
 	padd_len = opts->field_width - ft_lstsize(str);
 	padd_str = 0;
 	if (padd_len > 0 && opts->field_width > 0)
 	{
-		padd_str = ft_lstnew(opts->padd_char);
+		padd_str = (char *) malloc(sizeof(char) * (padd_len + 1));
 		if (!padd_str)
-			return ;
-		while (padd_len-- > 0)
-			ft_lstadd_back(padd_str, ft_lstnew(opts->padd_char));
+			return (str);
+		ft_memset(padd_str, opts->padd_char, padd_len);
+		padd_str[padd_len] = 0;
 	}
 	if (opts->flags[minus])
-		ft_lstadd_back(str, padd_str);
+		return (join_free(str, padd_str));
 	else
-		ft_lstadd_front(str, padd_str);
+		return (join_free(padd_str, str));
 }
 
-static t_list	*format(t_f_options *opts, va_list args, size_t index)
+static char	*format(t_f_options *opts, va_list args, size_t index)
 {
-	va_list			copy;
-	static t_list	*(*converters[CONVERSIONS_N])(t_f_options *, va_list);
+	va_list		copy;
+	static char	*(*converters[CONVERSIONS_N])(t_f_options *, va_list);
 
 	converters[null] = &to_perc;
 	converters[character] = &to_character;
@@ -54,55 +54,44 @@ static t_list	*format(t_f_options *opts, va_list args, size_t index)
 	while (index-- > 1)
 		va_arg(copy, void *);
 	if (converters[opts->conv])
-		do_padding(converters[opts->conv](opts, copy), opts);
+		return (do_padding(converters[opts->conv](opts, copy), opts));
 	else
 		return (0);
 }
 
 // because everyone hates norminette
-static void	loopdy_loop(char **fmt_it, size_t *index, va_list args, t_list **str)
+static void	loopdy_loop(char **fmt_it, size_t *index, va_list args, t_str *str)
 {
 	t_f_options	*opts;
-	t_list		*new;
+	t_str		*new;
 
 	opts = parse_format(*fmt_it, fmt_it);
 	if (opts)
 	{
 		if (opts->arg_i <= 0)
-			new = format(opts, args, (*index)++);
+			new = ft_lstnew(format(opts, args, (*index)++));
 		else
-			new = format(opts, args, opts->arg_i);
+			new = ft_lstnew(format(opts, args, opts->arg_i));
 		free(opts);
 	}
 	else
-		new = ft_lstnew(ctos(*(*fmt_it)++));
-	ft_lstadd_back(str, new);
-}
-
-static void	putstrlst(t_list *lst)
-{
-	while (lst && lst->content)
-	{
-		write(1, &(lst->content), 1);
-		lst = lst->next;
-	}
+		new = ctos(*(*fmt_it)++);
+	ft_lstadd_back(lst, new);
 }
 
 int	ft_printf(const char *fmt, ...)
 {
 	va_list		ap;
 	char		*fmt_it;
-	t_list		*str;
+	t_str		*str;
 	size_t		index;
 
 	index = 1;
 	fmt_it = (char *)fmt;
-	str = (t_list *) 0;
+	str = (t_str *) 0;
 	va_start(ap, fmt);
 	while (*fmt_it)
 		loopdy_loop(&fmt_it, &index, ap, &str);
-	putstrlst(str);
-	index = ft_lstsize(str);
-	ft_lstclear(str, free);
-	return (index);
+	ft_putstr_fd(str->content, 1);
+	return (str->size);
 }
